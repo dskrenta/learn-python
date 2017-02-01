@@ -25,12 +25,30 @@ expression7 = (nLet % nLet) and (myId * myId)
 expression8 = 1 or (myId / 0)
 expression9 = round(3.14, 1)
 
-print(expression1)
-print(expression2)
-print(expression3)
-print(expression4)
-print(expression5)
-print(expression6)
-print(expression7)
-print(expression8)
-print(expression9)
+print("Expression #1 -------------: " + str(expression1))
+print("Expression #2 -------------: " + str(expression2))
+print("Expression #3 -------------: " + str(expression3))
+print("Expression #4 -------------: " + str(expression4))
+print("Expression #5 -------------: " + str(expression5))
+print("Expression #6 -------------: " + str(expression6))
+print("Expression #7 -------------: " + str(expression7))
+print("Expression #8 -------------: " + str(expression8))
+print("Expression #9 -------------: " + str(expression9))
+
+'''
+Enter GID: 01032575
+Enter family name: skrenta
+My family name is skrenta
+My Student ID is 01032575
+The value of myId is 23
+The number of characters in my last name is 7
+Expression #1 -------------: 11.5
+Expression #2 -------------: 1
+Expression #3 -------------: 20
+Expression #4 -------------: 7
+Expression #5 -------------: 0
+Expression #6 -------------: 0.01
+Expression #7 -------------: 0
+Expression #8 -------------: 1
+Expression #9 -------------: 3.1
+'''
