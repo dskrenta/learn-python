@@ -40,5 +40,4 @@ That password didn't have the required properties.
 Enter your password: Ilikebears89
 Re-enter your password: Ilikebears89
 That pair of passwords will work.
-
 '''
