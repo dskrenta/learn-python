@@ -12,7 +12,7 @@ def main():
     abbrevMap = createMap()
     while(times < RUNS):
         key = input('Enter a message to be translated:\n')
-        print('The translated text is:\n' + str(abbrevMap.get(key)) + '\n')
+        print('The translated text is:\n' + str(abbrevMap.get(key.replace('!', ''))) + '\n')
         times += 1
 
 def createMap():
@@ -32,6 +32,11 @@ The translated text is:
 talk to you later
 
 Enter a message to be translated:
+ttyl!
+The translated text is:
+talk to you later
+
+Enter a message to be translated:
 idk
 The translated text is:
 I don't know
@@ -45,10 +50,4 @@ Enter a message to be translated:
 afk
 The translated text is:
 away from keyboard
-
-Enter a message to be translated:
-app
-The translated text is:
-application
-
 '''
