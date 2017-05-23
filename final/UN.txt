@@ -1,0 +1,2 @@
+Afghanistan,Asia,31.8,251772
+Albania,Europe,3.0,11100
