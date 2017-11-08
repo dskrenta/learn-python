@@ -1,11 +1,11 @@
 DATA_FILE = 'student_files.csv'
 
 def main():
-    line = 0
-    with open(DATA_FILE, encoding='utf-8') as cols:
-        for row in cols:
-            if line > 0:
-                values = row.rstrip().split(',')
+    lineNum = 0
+    with open(DATA_FILE, encoding='utf-8') as lines:
+        for line in lines:
+            if lineNum > 0:
+                values = line.rstrip().split(',')
                 if (values[2] < values[3] or values[2] < values[4] or
                 values[5] < values[6] or values[5] < values[7] or
                 values[8] < values[9] or values[8] < values[10] or
@@ -38,6 +38,6 @@ def main():
                         print('\t\tCurrent Math grade: ' + values[11] + ', ' + 'Objective Math grade: ' + values[12])
                     if values[14] < values[15]:
                         print('\t\tCurrent Math grade: ' + values[14] + ', ' + 'Objective Math grade: ' + values[15])
-            line += 1
+            lineNum += 1
 
 main()
