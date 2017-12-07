@@ -5,6 +5,7 @@ from colors import get_sentiment_color
 from geo import GeoPosition
 import json
 import codecs
+import datetime
 
 def load_sentiments():
     sentiments = {}
@@ -134,16 +135,48 @@ def most_popular_hashtag_by_state(tweets, states):
 
     output.close()
 
+def parse_tweets_from_file(file_name):
+    tweets = []
+    tweets_from_file = codecs.open(file_name, 'r', 'utf-8')
+
+    for line in tweets_from_file:
+        try:
+            tweet = line.rstrip().split('\t')
+            tweets.append([tweet[0], tweet[1], tweet[2]])
+        except:
+            pass
+
+    return tweets
+
+def sort_by_reverse_chronological_order():
+    tweets1 = parse_tweets_from_file('ExtraCredit/tweet1.txt')
+    tweets2 = parse_tweets_from_file('ExtraCredit/tweet1.txt')
+    tweets = tweets1 + tweets2
+
+    sorted_tweets = sorted(
+        tweets,
+        key = lambda tweet: datetime.datetime.strptime(tweet[2], '%Y %m %d %H:%M:%S')
+    )
+
+    output = codecs.open('ExtraCredit/sorted_tweets.txt', 'w', 'utf-8')
+
+    for tweet in sorted_tweets:
+        output.write(tweet[0] + ' ' + tweet[1] + ' ' + tweet[2] + '\n')
+
+    output.close()
+
 # load all tweets
 def main():
     # input_terms = raw_input("Please enter search your filter terms separated by a comma: ")
     # filter_terms = input_terms.split(',')
     # sentiments = load_sentiments()
-    states = load_states()
-    tweets = load_tweets('data/tweets_with_time.json')
+    # states = load_states()
+    # tweets = load_tweets('data/tweets_with_time.json')
     # sentiment_color_map = map_sentiment_to_state(tweets, sentiments, states, filter_terms)
 
-    most_popular_hashtag_by_state(tweets, states)
+    sort_by_reverse_chronological_order()
+
+    # most_popular_hashtag_by_state(tweets, states)
 
     '''
     usa = Country(states, 1200)
