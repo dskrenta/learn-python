@@ -65,43 +65,6 @@ def load_tweets(tweets_file_name):
     tweets_file.close()
     return tweets
 
-'''
-def tokenize_tweets(tweets):
-    tweets_with_tokens = []
-
-    for tweet in tweets:
-        tweet['tokens'] = tweet['text'].split(' ')
-        tweets_with_tokens.append(tweet)
-
-    return tweets_with_tokens
-
-def filter_tweets(tweets, terms):
-    filtered_tweets = []
-
-    for tweet in tweets:
-        for term in terms:
-            for tweet_term in tweet['tokens']:
-                if tweet_term == term:
-                    filtered_tweets.append(tweet)
-
-    return filtered_tweets
-
-def add_sentiment(tweets, sentiments):
-    tweets_with_sentiment = []
-
-    for tweet in tweets:
-        tweet_sentiment = 0.0
-
-        for token in tweet['tokens']:
-            if token in sentiments:
-                tweet_sentiment += float(sentiments[token])
-
-        tweet['sentiment'] = tweet_sentiment
-        tweets_with_sentiment.append(tweet)
-
-    return tweets_with_sentiment
-'''
-
 def map_sentiment_to_state(tweets, sentiments, states, filter_terms):
     sentiment_color_map = {}
     filtered_tweets = []
@@ -148,6 +111,8 @@ def map_sentiment_to_state(tweets, sentiments, states, filter_terms):
     return sentiment_color_map
 
 def main():
+    input_terms = raw_input("Please enter search your filter terms separated by a comma: ")
+    filter_terms = input_terms.split(',')
     sentiments = load_sentiments()
     states = load_states()
     # load all tweets
