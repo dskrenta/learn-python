@@ -5,32 +5,6 @@ from colors import get_sentiment_color
 from geo import GeoPosition
 import json
 import codecs
-# you may want to import more libraries here
-
-# Please consult the tips & tricks document as well as piazza for help!
-
-# You should copy and paste this main function to begin writing your program.
-#def main():
-#    sentiments = load_sentiments()    # a map from strings to float in (-1.0, +1.0) range
-#    states = load_states()            # list of State instances
-#    usa = Country(states, 1200)       # graphical rendering of Country (feel free to change the width)
-#    # You should prompt the user for a search term.
-#    # You should also implement a function to load the tweets using the json library
-#    # to do this you should load the tweets from one of the .json files
-#    # talk to one of the TA/CA/LAs if you want help understanding JSON format.
-#    # Read more: https://docs.python.org/3/library/json.html
-#    # here is a tutorial: http://docs.python-guide.org/en/latest/scenarios/json/
-#    #
-#    # You will also need to implement a function to load the sentiments.
-#    # The sentiments file is in the following format:
-#    # word, score
-#    # word, score
-#    # Make sure to save this data as the correct types!
-#    # Some entries have multiple words (abandoned person,-0.375),
-#    # You may ignore these entries.
-#    #
-#    # When you display the map of the USA, it will appear behind
-#    # your spyder window.
 
 def load_sentiments():
     sentiments = {}
@@ -122,7 +96,5 @@ def main():
 
     for state in sentiment_color_map:
         usa.setFillColor(state, sentiment_color_map[state])
-
-#------------ your code should follow ------------
 
 main()
