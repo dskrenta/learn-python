@@ -81,7 +81,7 @@ def map_sentiment_to_state(tweets, sentiments, states, filter_terms):
     return sentiment_color_map
 
 def closest_state(tweet, states):
-    """Finds the closest state to a tweet based on GeoPosotion"""
+    """Finds the closest state to a tweet based on GeoPosition"""
     min_distance = 10000.0
     closest_state = ''
 
@@ -149,7 +149,7 @@ def parse_tweets_from_file(file_name):
 def sort_by_reverse_chronological_order():
     """Sorts parsed tweets by reverse chronological order and outputs to file"""
     tweets1 = parse_tweets_from_file('ExtraCredit/tweet1.txt')
-    tweets2 = parse_tweets_from_file('ExtraCredit/tweet1.txt')
+    tweets2 = parse_tweets_from_file('ExtraCredit/tweet2.txt')
     tweets = tweets1 + tweets2
 
     sorted_tweets = sorted(
