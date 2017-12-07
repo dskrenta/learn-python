@@ -66,7 +66,7 @@ def map_sentiment_to_state(tweets, sentiments, states, filter_terms):
 
             if distance < min_distance:
                 min_distance = distance
-                closest_state = state._code
+                closest_state = state.abbrev()
 
         if closest_state in sentiment_color_map:
             sentiment_color_map[closest_state].append(tweet_sentiment)
@@ -91,7 +91,7 @@ def main():
     states = load_states()
     # load all tweets
     tweets = load_tweets('data/tweets_with_time.json')
-    sentiment_color_map = map_sentiment_to_state(tweets, sentiments, states, ['chicken', 'pizza'])
+    sentiment_color_map = map_sentiment_to_state(tweets, sentiments, states, filter_terms)
     usa = Country(states, 1200)
 
     for state in sentiment_color_map:
