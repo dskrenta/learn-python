@@ -62,20 +62,12 @@ def map_sentiment_to_state(tweets, sentiments, states, filter_terms):
             if token in sentiments:
                 tweet_sentiment += sentiments[token]
 
-        min_distance = 10000.0
-        closest_state = ''
+        state = closest_state(tweet, states)
 
-        for state in states:
-            distance = tweet.position().distance(state.centroid())
-
-            if distance < min_distance:
-                min_distance = distance
-                closest_state = state.abbrev()
-
-        if closest_state in sentiment_color_map:
-            sentiment_color_map[closest_state].append(tweet_sentiment)
+        if state in sentiment_color_map:
+            sentiment_color_map[state].append(tweet_sentiment)
         else:
-            sentiment_color_map[closest_state] = [tweet_sentiment]
+            sentiment_color_map[state] = [tweet_sentiment]
 
     for state in sentiment_color_map:
         average = 0.0
