@@ -100,11 +100,9 @@ def closest_state(tweet, states):
 def most_popular_hashtag_by_state(tweets, states):
     tweets_by_state = {}
     tags_by_state_with_freq = {}
-    most_pop_tag_by_state = {}
 
     for state in states:
         tags_by_state_with_freq[state.abbrev()] = {}
-        most_pop_tag_by_state[state.abbrev()] = ''
 
     for tweet in tweets:
         state = closest_state(tweet, states)
@@ -123,6 +121,8 @@ def most_popular_hashtag_by_state(tweets, states):
                     else:
                         tags_by_state_with_freq[state][token] = 1
 
+    output = codecs.open('most_popular_hashtag_by_state.txt', 'w', 'utf-8')
+
     for state in tags_by_state_with_freq:
         max_count = 0
         max_tag = ''
@@ -130,9 +130,9 @@ def most_popular_hashtag_by_state(tweets, states):
             if tags_by_state_with_freq[state][tag] > max_count:
                 max_count = tags_by_state_with_freq[state][tag]
                 max_tag = tag
-        most_pop_tag_by_state[state] = [max_tag, max_count]
+        output.write(state + ', ' + str(max_tag) + ', ' + str(max_count) + '\n')
 
-    print most_pop_tag_by_state
+    output.close()
 
 # load all tweets
 def main():
