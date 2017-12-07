@@ -165,24 +165,29 @@ def sort_by_reverse_chronological_order():
 
     output.close()
 
-# load all tweets
 def main():
-    # input_terms = raw_input("Please enter search your filter terms separated by a comma: ")
-    # filter_terms = input_terms.split(',')
-    # sentiments = load_sentiments()
-    # states = load_states()
-    # tweets = load_tweets('data/tweets_with_time.json')
-    # sentiment_color_map = map_sentiment_to_state(tweets, sentiments, states, filter_terms)
+    input_terms = raw_input("Please enter search your filter terms separated by a comma: ")
+    print "Please wait..."
+
+    filter_terms = input_terms.split(',')
+    sentiments = load_sentiments()
+    states = load_states()
+
+    tweets1 = load_tweets('data/tweets_with_time.json')
+    tweets2 = load_tweets('data/tweets_with_time_2.json')
+    tweets3 = load_tweets('data/tweets_with_time_3.json')
+    tweets4 = load_tweets('data/tweets_with_time_4.json')
+    tweets = tweets1 + tweets2 + tweets3 + tweets4
+
+    sentiment_color_map = map_sentiment_to_state(tweets, sentiments, states, filter_terms)
 
     sort_by_reverse_chronological_order()
 
-    # most_popular_hashtag_by_state(tweets, states)
+    most_popular_hashtag_by_state(tweets, states)
 
-    '''
     usa = Country(states, 1200)
 
     for state in sentiment_color_map:
         usa.setFillColor(state, sentiment_color_map[state])
-    '''
 
 main()
