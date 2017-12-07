@@ -38,7 +38,7 @@ def load_sentiments():
 
     for line in sentiments_file:
         values = line.split(',')
-        sentiments[values[0]] = values[1]
+        sentiments[values[0]] = float(values[1])
 
     return sentiments
 
@@ -82,7 +82,7 @@ def map_sentiment_to_state(tweets, sentiments, states, filter_terms):
 
         for token in tokens:
             if token in sentiments:
-                tweet_sentiment += float(sentiments[token])
+                tweet_sentiment += sentiments[token]
 
         min_distance = 10000.0
         closest_state = ''
