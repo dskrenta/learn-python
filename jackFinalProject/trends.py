@@ -33,7 +33,14 @@ import codecs
 #    # your spyder window.
 
 def load_sentiments():
-    return 0
+    sentiments = {}
+    sentiments_file = open('data/sentiments.csv', 'r')
+
+    for line in sentiments_file:
+        values = line.split(',')
+        sentiments[values[0]] = values[1]
+
+    return sentiments
 
 def load_tweets(tweets_file_name):
     tweets = []
@@ -41,36 +48,115 @@ def load_tweets(tweets_file_name):
 
     for line in tweets_file:
         try:
-            tweets.append(json.loads(line))
+            tweet_dict = json.loads(line)
+            tweets.append(
+                Tweet(
+                    tweet_dict['text'],
+                    tweet_dict['created_at'],
+                    GeoPosition(
+                        tweet_dict['coordinates'][1],
+                        tweet_dict['coordinates'][0]
+                    )
+                )
+            )
         except:
             pass
 
     tweets_file.close()
     return tweets
 
+'''
+def tokenize_tweets(tweets):
+    tweets_with_tokens = []
+
+    for tweet in tweets:
+        tweet['tokens'] = tweet['text'].split(' ')
+        tweets_with_tokens.append(tweet)
+
+    return tweets_with_tokens
+
+def filter_tweets(tweets, terms):
+    filtered_tweets = []
+
+    for tweet in tweets:
+        for term in terms:
+            for tweet_term in tweet['tokens']:
+                if tweet_term == term:
+                    filtered_tweets.append(tweet)
+
+    return filtered_tweets
+
+def add_sentiment(tweets, sentiments):
+    tweets_with_sentiment = []
+
+    for tweet in tweets:
+        tweet_sentiment = 0.0
+
+        for token in tweet['tokens']:
+            if token in sentiments:
+                tweet_sentiment += float(sentiments[token])
+
+        tweet['sentiment'] = tweet_sentiment
+        tweets_with_sentiment.append(tweet)
+
+    return tweets_with_sentiment
+'''
+
+def map_sentiment_to_state(tweets, sentiments, states, filter_terms):
+    sentiment_color_map = {}
+    filtered_tweets = []
+
+    for tweet in tweets:
+        tokens = tweet.message().split(' ')
+        for token in tokens:
+            for term in filter_terms:
+                if token == term:
+                    filtered_tweets.append(tweet)
+
+    for tweet in filtered_tweets:
+        tokens = tweet.message().split(' ')
+        tweet_sentiment = 0.0
+
+        for token in tokens:
+            if token in sentiments:
+                tweet_sentiment += float(sentiments[token])
+
+        min_distance = 10000.0
+        closest_state = ''
+
+        for state in states:
+            distance = tweet.position().distance(state.centroid())
+
+            if distance < min_distance:
+                min_distance = distance
+                closest_state = state._code
+
+        if closest_state in sentiment_color_map:
+            sentiment_color_map[closest_state].append(tweet_sentiment)
+        else:
+            sentiment_color_map[closest_state] = [tweet_sentiment]
+
+    for state in sentiment_color_map:
+        average = 0.0
+
+        for sentiment in sentiment_color_map[state]:
+            average += sentiment
+
+        average /= len(sentiment_color_map[state])
+        sentiment_color_map[state] = get_sentiment_color(average)
+
+    return sentiment_color_map
+
 def main():
     sentiments = load_sentiments()
     states = load_states()
+    # load all tweets
     tweets = load_tweets('data/tweets_with_time.json')
-    # usa = Country(states, 1200)
+    sentiment_color_map = map_sentiment_to_state(tweets, sentiments, states, ['chicken', 'pizza'])
+    usa = Country(states, 1200)
 
-    print tweets
-
-    # tweets_file = open('data/tweets_with_time.json', 'r')
-    # print tweets_file.read()
-    # print tweets_file.read().encode('utf-8')
-    # json.loads(tweets_file.read().encode('utf-8'))
-    # decoded_file = json.loads(tweets_file.read().encode('utf-8'))
-
-    # print tweets
-
-    '''
-    tweets = json.loads(tweets)
-
-    for tweet in tweets:
-        print tweet
-    '''
-
+    for state in sentiment_color_map:
+        usa.setFillColor(state, sentiment_color_map[state])
 
 #------------ your code should follow ------------
 
