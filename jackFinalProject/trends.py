@@ -8,6 +8,7 @@ import codecs
 import datetime
 
 def load_sentiments():
+    """Loads sentiment values from sentiment file in term, sentiment format and inserts into sentiment dictionary."""
     sentiments = {}
     sentiments_file = open('data/sentiments.csv', 'r')
 
@@ -18,6 +19,7 @@ def load_sentiments():
     return sentiments
 
 def load_tweets(tweets_file_name):
+    """Loads tweets from tweet file, creates tweet object, inserts into tweets list"""
     tweets = []
     tweets_file = codecs.open(tweets_file_name, 'r', 'utf-8')
 
@@ -41,6 +43,7 @@ def load_tweets(tweets_file_name):
     return tweets
 
 def map_sentiment_to_state(tweets, sentiments, states, filter_terms):
+    """Builds average sentiment to state dictionary using tweets, sentiments, states, and filter_terms"""
     sentiment_color_map = {}
     filtered_tweets = []
 
@@ -86,6 +89,7 @@ def map_sentiment_to_state(tweets, sentiments, states, filter_terms):
     return sentiment_color_map
 
 def closest_state(tweet, states):
+    """Finds the closest state to a tweet based on GeoPosotion"""
     min_distance = 10000.0
     closest_state = ''
 
@@ -99,6 +103,7 @@ def closest_state(tweet, states):
     return closest_state
 
 def most_popular_hashtag_by_state(tweets, states):
+    """Computes the most popular hashtag by state and outputs to file"""
     tweets_by_state = {}
     tags_by_state_with_freq = {}
 
@@ -136,6 +141,7 @@ def most_popular_hashtag_by_state(tweets, states):
     output.close()
 
 def parse_tweets_from_file(file_name):
+    """Parse tweets from file in extra credit tweets file format"""
     tweets = []
     tweets_from_file = codecs.open(file_name, 'r', 'utf-8')
 
@@ -149,6 +155,7 @@ def parse_tweets_from_file(file_name):
     return tweets
 
 def sort_by_reverse_chronological_order():
+    """Sorts parsed tweets by reverse chronological order and outputs to file"""
     tweets1 = parse_tweets_from_file('ExtraCredit/tweet1.txt')
     tweets2 = parse_tweets_from_file('ExtraCredit/tweet1.txt')
     tweets = tweets1 + tweets2
